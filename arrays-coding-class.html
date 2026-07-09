@@ -1,0 +1,2626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arrays · Coding Class Reference · TAP Academy</title>
+<style>
+  :root{
+    --ink:#0d1b2a; --ink2:#16283d; --paper:#f6f7f4; --line:#dfe3dc;
+    --muted:#5b6b7a; --accent:#12b886; --accent2:#0ca678; --amber:#e8a33d;
+    --code-bg:#0d1b2a; --code-fg:#e6edf3;
+    --mono:"SF Mono",ui-monospace,"JetBrains Mono","Cascadia Code",Consolas,monospace;
+    --sans:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  html,body{max-width:100%;overflow-x:hidden;-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased}
+
+  header{background:var(--ink);color:#fff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;position:sticky;top:0;z-index:20}
+  header .logo{height:30px}
+  header .meta{text-align:right;font-size:12.5px;color:#9fb0c0;letter-spacing:.02em}
+  header .meta b{display:block;color:#fff;font-size:15px;letter-spacing:.01em}
+
+  main{max-width:900px;margin:0 auto;padding:34px 24px 80px}
+
+  .part{display:flex;align-items:center;gap:14px;margin:8px 0 22px;color:var(--muted)}
+  .part::before,.part::after{content:"";height:1px;background:var(--line);flex:1}
+  .part span{font:700 11.5px var(--mono);letter-spacing:.12em;text-transform:uppercase}
+
+  .prog{margin:0 0 40px;border:1px solid var(--line);border-radius:14px;background:#fff;overflow:hidden}
+  .prog > h2{margin:0;padding:16px 22px;font-size:19px;letter-spacing:-.01em;color:#fff;background:var(--ink2);display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .prog > h2 .tag{font:600 11px/1 var(--mono);background:var(--accent);color:#04231a;padding:5px 8px;border-radius:6px;letter-spacing:.06em}
+  .body{padding:22px 22px 26px}
+
+  .q{border-left:3px solid var(--accent);background:#f0faf5;padding:12px 16px;border-radius:0 8px 8px 0;margin:0 0 22px;font-size:15px}
+  .q b{color:var(--accent2)}
+
+  h3{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);margin:26px 0 10px;font-weight:700}
+  h3:first-of-type{margin-top:6px}
+
+  ul{margin:0 0 4px;padding-left:20px}
+  li{margin:5px 0;font-size:14.5px}
+  p{margin:6px 0;font-size:14.5px}
+  code.i{font:500 13px var(--mono);background:#eef1ec;padding:2px 6px;border-radius:5px;color:#0b3a2e;overflow-wrap:anywhere}
+  .arr{font:600 13px var(--mono);background:#eef1ec;padding:2px 7px;border-radius:5px}
+  .ok{color:var(--accent2);font-weight:700}
+  .bad{color:#c0392b;font-weight:700}
+
+  ol.steps{margin:0;padding-left:20px}
+  ol.steps li{margin:6px 0;font-size:14.5px}
+
+  table{border-collapse:collapse;width:100%;margin:8px 0 4px;font-size:13.5px;max-width:100%}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:#f2f4ef;font-weight:600;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+  td code{font:500 12.5px var(--mono)}
+
+  .code{position:relative;margin:14px 0 6px;border-radius:10px;overflow:hidden;background:var(--code-bg);border:1px solid #1e3350;max-width:100%}
+  .code .bar{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;background:#0a1622;border-bottom:1px solid #1e3350}
+  .code .bar span{font:600 11px var(--mono);color:#7d93a8;letter-spacing:.05em}
+  .code button{font:600 11px var(--sans);color:#cfe;background:#123;border:1px solid #274056;padding:4px 10px;border-radius:6px;cursor:pointer;letter-spacing:.03em}
+  .code button:hover{background:#1a3550}
+  .code button.done{color:#04231a;background:var(--accent);border-color:var(--accent)}
+  pre{margin:0;padding:16px 18px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+  code.block{font:500 13px/1.62 var(--mono);color:var(--code-fg);white-space:pre;display:block}
+  .kw{color:#79c0ff}.ty{color:#7ee787}.st{color:#a5d6ff}.cm{color:#6b8199;font-style:italic}.nm{color:#ffa657}
+  .run{margin:12px 0 4px;border:1px solid #24405c;border-radius:10px;overflow:hidden;background:#08131f}
+  .run .rbar{padding:7px 14px;background:#0a1622;color:#7d93a8;font:600 11px var(--mono);letter-spacing:.05em;border-bottom:1px solid #1e3350}
+  .run .rbody{padding:12px 16px;font:500 12.5px/1.7 var(--mono);overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .run .rrun + .rrun{margin-top:10px;padding-top:10px;border-top:1px dashed #1e3350}
+  .run .in{color:#89b4d6}
+  .run .in::before{content:"\203a  ";color:#4a5f74}
+  .run .out{color:#7ee787;font-weight:700;white-space:pre-wrap}
+  .run .out::before{content:"\27f6  ";color:#3d6b4f;font-weight:400}
+  .run .out.bad{color:#ff7b72}
+  .run .out.bad::before{content:"\27f6  ";color:#7a3b38;font-weight:400}
+  .run .cmt{color:#6b8199;font-style:italic;font-weight:400}
+
+  .hw{border:1px solid var(--amber);background:#fdf7ec;border-radius:14px;padding:20px 22px;margin-top:44px}
+  .hw h2{margin:0 0 12px;font-size:18px;color:#9a6b12;display:flex;align-items:center;gap:10px}
+  .hw h2 .tag{font:600 11px/1 var(--mono);background:var(--amber);color:#3a2500;padding:5px 8px;border-radius:6px;letter-spacing:.06em}
+  .hw .tm{margin-top:12px;font-weight:600;color:#7a5410}
+
+  footer{max-width:900px;margin:0 auto;padding:0 24px 50px;color:var(--muted);font-size:12.5px}
+
+  /* ---------- tablet ---------- */
+  @media(max-width:760px){
+    main{padding:26px 16px 64px}
+    .prog{border-radius:12px}
+    .prog > h2{padding:14px 16px;font-size:17px}
+    .body{padding:18px 16px 22px}
+    .hw{padding:18px 16px}
+    footer{padding:0 16px 40px}
+  }
+
+  /* ---------- phone ---------- */
+  @media(max-width:560px){
+    header{padding:12px 14px;gap:10px}
+    header .logo{height:24px}
+    header .meta{font-size:11px;line-height:1.35}
+    header .meta b{font-size:13px}
+
+    main{padding:20px 12px 56px}
+    .part{margin:6px 0 16px;gap:10px}
+    .part span{font-size:10px;letter-spacing:.09em}
+
+    .prog{margin-bottom:28px}
+    .prog > h2{font-size:16px;gap:9px;padding:13px 14px}
+    .prog > h2 .tag{font-size:10px;padding:4px 6px}
+    .body{padding:16px 14px 20px}
+
+    .q{padding:11px 13px;font-size:14px}
+    h3{font-size:11.5px;margin:20px 0 8px}
+    p,li,ol.steps li{font-size:13.5px}
+    ul,ol.steps{padding-left:18px}
+    code.i,.arr{font-size:12px}
+
+    /* code blocks: smaller type, scrollable, chunky copy button */
+    .code{margin:12px 0 4px;border-radius:8px}
+    .code .bar{padding:7px 10px}
+    .code .bar span{font-size:10px}
+    .code button{padding:6px 11px;font-size:11px;min-height:30px}
+    pre{padding:12px 12px}
+    code.block{font-size:11.5px;line-height:1.6}
+
+    /* run consoles */
+    .run{border-radius:8px}
+    .run .rbar{padding:6px 10px;font-size:10px}
+    .run .rbody{padding:10px 12px;font-size:11.5px;line-height:1.65}
+    .run .cmt{display:block;margin-left:0}
+
+    /* tables scroll sideways rather than squeezing */
+    .tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px -2px 4px}
+    table{font-size:12.5px;min-width:340px}
+    th,td{padding:6px 8px}
+    td code{font-size:11.5px}
+
+    .hw{padding:16px 14px;border-radius:12px}
+    .hw h2{font-size:16px}
+    .hw p,.hw li{font-size:13.5px}
+  }
+
+  /* ---------- small phone ---------- */
+  @media(max-width:380px){
+    header .meta{display:none}
+    code.block{font-size:10.8px}
+    .prog > h2{font-size:15px}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <img class="logo" src="data:image/png;base64,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" alt="TAP Academy">
+  <div class="meta"><b>Arrays · Coding Class</b>Day-by-day live-class reference</div>
+</header>
+
+<main>
+
+<div class="part"><span>Day 3 · Array Traversal</span></div>
+
+<!-- 3.1 PRODUCT OF n-1 -->
+<section class="prog">
+  <h2><span class="tag">3·1</span> Product of n−1 elements</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Given an array of n integers, print the resultant array with the product of n−1 elements.</div>
+
+    <h3>Slide 1 — Question</h3>
+    <p><span class="arr">[3,5,2,1,4]</span> → <span class="arr">[40,24,60,120,30]</span></p>
+    <ul>
+      <li>Index 0: exclude 3 → 5×2×1×4 = <b>40</b></li>
+      <li>Verify last: exclude 4 → 3×5×2×1 = <b>30</b> <span class="ok">✓</span></li>
+    </ul>
+
+    <h3>Slide 2 — Logic</h3>
+    <ul>
+      <li>Same-size empty <code class="i">res</code> appears.</li>
+      <li>Each cell is missing one number → add it back → every row = <b>120</b> = product of all.</li>
+      <li>STEP 1: product = 120. STEP 2: <code class="i">res[i] = product / ar[i]</code> (strike-out cancels).</li>
+      <li><code class="i">for(i=0;i&lt;5;i++) res[i]=product/ar[i]</code></li>
+    </ul>
+
+    <h3>Return-array beat</h3>
+    <p>1D <code class="i">int[]</code> · 2D <code class="i">int[][]</code> · float <code class="i">float[]</code> · boolean <code class="i">boolean[]</code>. <span style="color:var(--muted)">(Screenshot moment.)</span></p>
+
+    <h3>Zero edge case (student input)</h3>
+    <ol class="steps">
+      <li>Input with 0 → <code class="i">ArithmeticException: / by zero</code></li>
+      <li>Fix 1: <code class="i">if(ar[i]!=0)</code> around product → still crashes</li>
+      <li>Fix 2: <code class="i">if(ar[i]!=0)</code> around division → works <span class="ok">✓</span></li>
+    </ol>
+
+    <div class="code">
+      <div class="bar"><span>ProductArray.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">ProductArray</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span>[] <span class="nm">productArray</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> p = <span class="st">1</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] != <span class="st">0</span>)
+            {
+                p = p * ar[i];
+            }
+        }
+
+        <span class="ty">int</span>[] res = <span class="kw">new</span> <span class="ty">int</span>[ar.length];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] != <span class="st">0</span>)
+            {
+                res[i] = p / ar[i];
+            }
+        }
+
+        <span class="kw">return</span> res;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span>[] res = productArray(ar);
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; res.length; i++)
+        {
+            System.out.print(res[i] + <span class="st">" "</span>);
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · ProductArray</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">4 3 1 2 5</div><div class="out">30 40 120 60 24</div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">3 5 0 1 4</div><div class="out bad">ArithmeticException: / by zero<span class="cmt">   // before the guards</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">3 5 0 1 4</div><div class="out">20 12 0 60 15<span class="cmt">   // after both if(ar[i]!=0) guards</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 3.2 SECOND LARGEST -->
+<section class="prog">
+  <h2><span class="tag">3·2</span> Second largest — no sorting</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Given an array of n integers, print the second largest. <b>No sorting.</b></div>
+
+    <h3>Slide — President / VP</h3>
+    <ul>
+      <li>Start: P = MIN, VP = MIN. Example <span class="arr">[3,5,4,7,6,9,8]</span> → 8.</li>
+      <li>3 → P=3 &nbsp;·&nbsp; 5 → demote: VP=3, P=5 &nbsp;·&nbsp; 4 → VP=4 &nbsp;·&nbsp; 7 → VP=5, P=7</li>
+      <li><code class="i">if(ar[i]&gt;p){ vp=p; p=ar[i]; } else if(ar[i]&gt;vp) vp=ar[i];</code></li>
+      <li>Largest → P, second → VP. O(n).</li>
+    </ul>
+
+    <h3>Fix 1 — negatives</h3>
+    <p>Start both at <code class="i">Integer.MIN_VALUE</code> (0 fails for all-negative arrays).</p>
+
+    <h3>Fix 2 — duplicate largest (interview)</h3>
+    <p><code class="i">2 8 3 4 8 6 1</code> gives 8, but if 8 is the first largest you want <b>6</b>. Add <code class="i">&amp;&amp; ar[i]!=p</code>. Drop it if duplicates should count.</p>
+
+    <div class="code">
+      <div class="bar"><span>SecondLargest.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">SecondLargest</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">secondLargest</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> p = <span class="ty">Integer</span>.MIN_VALUE;
+        <span class="ty">int</span> vp = <span class="ty">Integer</span>.MIN_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &gt; p)
+            {
+                vp = p;
+                p = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &gt; vp &amp;&amp; ar[i] != p)   <span class="cm">// drop "&& ar[i]!=p" if duplicates allowed</span>
+            {
+                vp = ar[i];
+            }
+        }
+
+        <span class="kw">return</span> vp;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(secondLargest(ar));
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · SecondLargest</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">7</div><div class="in">2 8 4 9 6 3 10</div><div class="out">9<span class="cmt">   // 10 is first largest</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">-2 4 -6 7 8</div><div class="out">7<span class="cmt">   // negatives handled</span></div></div>
+        <div class="rrun"><div class="in">7</div><div class="in">2 8 3 4 8 6 1</div><div class="out">6<span class="cmt">   // distinct 2nd largest (with != p)</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="part"><span>Day 4 · Array Pairs — Part A · Pair reductions</span></div>
+
+<!-- P1 MAX PAIR SUM -->
+<section class="prog">
+  <h2><span class="tag">4·1</span> Max pair sum</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Find the pair with the maximum sum. <b>No need to check all pairs</b> — max sum = largest + second largest.</div>
+
+    <h3>Idea</h3>
+    <ul>
+      <li>Reuse yesterday's second-largest code. Rename <code class="i">P → largest</code>, <code class="i">VP → secondLargest</code>.</li>
+      <li><b>Drop</b> the <code class="i">&amp;&amp; ar[i]!=p</code> condition from yesterday — pairs must count duplicates.</li>
+      <li>Return <code class="i">largest + secondLargest</code>.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>MaxPairSum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MaxPairSum</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">maxPairSum</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> largest = <span class="ty">Integer</span>.MIN_VALUE;
+        <span class="ty">int</span> secondLargest = <span class="ty">Integer</span>.MIN_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &gt; largest)
+            {
+                secondLargest = largest;
+                largest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &gt; secondLargest)
+            {
+                secondLargest = ar[i];
+            }
+        }
+
+        <span class="kw">return</span> largest + secondLargest;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(maxPairSum(ar));
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · MaxPairSum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">8 9 4 6 7</div><div class="out">17<span class="cmt">   // 8 + 9</span></div></div>
+        <div class="rrun"><div class="in">7</div><div class="in">1 6 9 4 7 3 5</div><div class="out">16<span class="cmt">   // 9 + 7</span></div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- P2 MIN PAIR SUM -->
+<section class="prog">
+  <h2><span class="tag">4·2</span> Min pair sum</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Find the pair with the minimum sum = smallest + second smallest.</div>
+
+    <h3>Changes from P1</h3>
+    <ul>
+      <li><code class="i">largest → smallest</code>, <code class="i">secondLargest → secondSmallest</code></li>
+      <li>Flip <code class="i">&gt;</code> to <code class="i">&lt;</code> · <code class="i">MIN_VALUE → MAX_VALUE</code></li>
+    </ul>
+
+    <h3>Bug &amp; fix (student input)</h3>
+    <p><code class="i">8 2 1 1 1</code> should give <b>2</b> (1+1) but gives <span class="bad">3</span> — the leftover <code class="i">!= smallest</code> condition blocked the duplicate. <b>Remove it</b> → <b>2</b> <span class="ok">✓</span></p>
+
+    <div class="code">
+      <div class="bar"><span>MinPairSum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MinPairSum</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">minPairSum</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> smallest = <span class="ty">Integer</span>.MAX_VALUE;
+        <span class="ty">int</span> secondSmallest = <span class="ty">Integer</span>.MAX_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &lt; smallest)
+            {
+                secondSmallest = smallest;
+                smallest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &lt; secondSmallest)
+            {
+                secondSmallest = ar[i];
+            }
+        }
+
+        <span class="kw">return</span> smallest + secondSmallest;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(minPairSum(ar));
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · MinPairSum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">7</div><div class="in">1 6 9 4 7 3 5</div><div class="out">4<span class="cmt">   // 1 + 3</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">8 3 1 4 5</div><div class="out">4<span class="cmt">   // 1 + 3</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">8 2 1 1 1</div><div class="out bad">3<span class="cmt">   // wrong — leftover "!= smallest" blocks the duplicate 1</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">8 2 1 1 1</div><div class="out">2<span class="cmt">   // after removing the condition → 1 + 1</span></div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- P3 MAX PAIR PRODUCT -->
+<section class="prog">
+  <h2><span class="tag">4·3</span> Max pair product</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Find the pair with the maximum product.</div>
+
+    <h3>Positives</h3>
+    <p>largest × second largest. <code class="i">3 9 1 7 2</code> → <b>63</b> (9×7). Duplicate max <code class="i">9 4 9 1 9</code> → <b>81</b> (needs <code class="i">!= largest</code> removed).</p>
+
+    <h3>Negatives break it → two products</h3>
+    <ul>
+      <li><code class="i">-2 -4 -3 -1 -6</code>: largest×2nd = (-1)(-2) = 2, but answer is <b>24</b> = (-6)(-4).</li>
+      <li>Compute <code class="i">P1 = largest × secondLargest</code> and <code class="i">P2 = smallest × secondSmallest</code>, return the larger.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>MaxPairProduct.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MaxPairProduct</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">maxPairProduct</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> largest = <span class="ty">Integer</span>.MIN_VALUE;
+        <span class="ty">int</span> secondLargest = <span class="ty">Integer</span>.MIN_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &gt; largest)
+            {
+                secondLargest = largest;
+                largest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &gt; secondLargest)
+            {
+                secondLargest = ar[i];
+            }
+        }
+
+        <span class="ty">int</span> smallest = <span class="ty">Integer</span>.MAX_VALUE;
+        <span class="ty">int</span> secondSmallest = <span class="ty">Integer</span>.MAX_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &lt; smallest)
+            {
+                secondSmallest = smallest;
+                smallest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &lt; secondSmallest)
+            {
+                secondSmallest = ar[i];
+            }
+        }
+
+        <span class="ty">int</span> p1 = largest * secondLargest;
+        <span class="ty">int</span> p2 = smallest * secondSmallest;
+
+        <span class="kw">return</span> p1 &gt; p2 ? p1 : p2;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(maxPairProduct(ar));
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · MaxPairProduct</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">3 9 1 7 2</div><div class="out">63<span class="cmt">   // 9 × 7</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">9 4 9 1 9</div><div class="out">81<span class="cmt">   // 9 × 9 (duplicate max)</span></div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">-2 -4 -3 -1 -6</div><div class="out">24<span class="cmt">   // -6 × -4</span></div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- P4 MIN PAIR PRODUCT -->
+<section class="prog">
+  <h2><span class="tag">4·4</span> Min pair product</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Find the pair with the minimum product. Needs <b>three</b> products — the combination case (positives + negatives) breaks two.</div>
+
+    <h3>Why P3 is needed</h3>
+    <ul>
+      <li>Two products give min(P1, P2) — fine for all-positive or all-negative.</li>
+      <li>Mixed signs: the smallest product is <b>smallest × largest</b> (big negative). e.g. largest 9, smallest −9 → −81, smaller than any same-sign pair.</li>
+      <li><code class="i">P1 = largest × secondLargest</code> · <code class="i">P2 = smallest × secondSmallest</code> · <code class="i">P3 = smallest × largest</code> → return the smallest of the three.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>MinPairProduct.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MinPairProduct</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">minPairProduct</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> largest = <span class="ty">Integer</span>.MIN_VALUE;
+        <span class="ty">int</span> secondLargest = <span class="ty">Integer</span>.MIN_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &gt; largest)
+            {
+                secondLargest = largest;
+                largest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &gt; secondLargest)
+            {
+                secondLargest = ar[i];
+            }
+        }
+
+        <span class="ty">int</span> smallest = <span class="ty">Integer</span>.MAX_VALUE;
+        <span class="ty">int</span> secondSmallest = <span class="ty">Integer</span>.MAX_VALUE;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            <span class="kw">if</span> (ar[i] &lt; smallest)
+            {
+                secondSmallest = smallest;
+                smallest = ar[i];
+            }
+            <span class="kw">else if</span> (ar[i] &lt; secondSmallest)
+            {
+                secondSmallest = ar[i];
+            }
+        }
+
+        <span class="ty">int</span> p1 = largest * secondLargest;
+        <span class="ty">int</span> p2 = smallest * secondSmallest;
+        <span class="ty">int</span> p3 = smallest * largest;
+
+        <span class="ty">int</span> min = p1 &lt; p2 ? p1 : p2;
+
+        <span class="kw">return</span> min &lt; p3 ? min : p3;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(minPairProduct(ar));
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · MinPairProduct</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">6</div><div class="in">1 3 9 8 -1 -2</div><div class="out">-18<span class="cmt">   // smallest × largest = -2 × 9  (P3)</span></div></div>
+      </div>
+    </div>
+
+
+    <p style="color:var(--muted)">Takeaway: hidden test cases — always think positive / negative / mixed / zero before claiming done. All three loops here are still O(n); avoid loop-inside-loop O(n²).</p>
+
+  </div>
+</section>
+
+<div class="part"><span>Day 4 · Array Pairs — Part B · Print all pairs</span></div>
+
+<!-- P5 PRINT ALL PAIRS -->
+<section class="prog">
+  <h2><span class="tag">4·5</span> Print all pairs</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print all pairs present in the array.</div>
+
+    <h3>Pattern (i / j table)</h3>
+    <p>Fix first element <code class="i">ar[i]</code>, run the second over everything after it. So <code class="i">j</code> starts at <code class="i">i + 1</code>.</p>
+    <div class="tw">
+    <table>
+      <tr><th>i</th><th>j goes</th></tr>
+      <tr><td>0</td><td>1 2 3 4</td></tr>
+      <tr><td>1</td><td>2 3 4</td></tr>
+      <tr><td>2</td><td>3 4</td></tr>
+      <tr><td>3</td><td>4</td></tr>
+    </table>
+    </div>
+    <ul>
+      <li>Outer: <code class="i">i = 0 → length-1</code> (i.e. <code class="i">i &lt; ar.length-1</code>)</li>
+      <li>Inner: <code class="i">j = i+1 → last</code></li>
+    </ul>
+
+    <h3>Test</h3>
+    <p><code class="i">5 → 1 2 3 4 5</code> → all pairs. Complexity O(n²) (nested loop is required here).</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintAllPairs.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintAllPairs</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printAllPairs</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> j = i + <span class="st">1</span>; j &lt; ar.length; j++)
+            {
+                System.out.println(ar[i] + <span class="st">" "</span> + ar[j]);
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printAllPairs(ar);
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · PrintAllPairs</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">1 2 3 4 5</div><div class="out">1 2
+1 3
+1 4
+1 5
+2 3
+2 4
+2 5
+3 4
+3 5
+4 5</div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- P6 PAIRS WITH SUM K -->
+<section class="prog">
+  <h2><span class="tag">4·6</span> Pairs with sum = k</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print only the pairs whose sum equals a given <code class="i">k</code>.</div>
+
+    <h3>Idea</h3>
+    <p>Same nested loop — guard the print with <code class="i">if (ar[i] + ar[j] == k)</code>. Accept <code class="i">k</code> as an extra parameter.</p>
+
+    <h3>Test</h3>
+    <p><code class="i">5 → 1 3 4 2 5</code>, <code class="i">k = 6</code> → prints <code class="i">1 5</code> and <code class="i">4 2</code>.</p>
+
+    <div class="code">
+      <div class="bar"><span>PairsWithSumK.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PairsWithSumK</span>
+{
+    <span class="kw">public static void</span> <span class="nm">pairsWithSumK</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> k)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> j = i + <span class="st">1</span>; j &lt; ar.length; j++)
+            {
+                <span class="kw">if</span> (ar[i] + ar[j] == k)
+                {
+                    System.out.println(ar[i] + <span class="st">" "</span> + ar[j]);
+                }
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> k = scan.nextInt();
+
+        pairsWithSumK(ar, k);
+    }
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · PairsWithSumK</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">1 3 4 2 5</div><div class="in">6<span class="cmt">   &larr; k</span></div><div class="out">1 5
+4 2</div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- P7 PAIRS WITH DIFFERENCE K -->
+<section class="prog">
+  <h2><span class="tag">4·7</span> Pairs with difference = k</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print pairs whose <b>difference</b> equals <code class="i">k</code>.</div>
+
+    <h3>Bug &amp; fix</h3>
+    <p>Only <code class="i">ar[i]-ar[j]==k</code> misses reversed order: <code class="i">1-3=-2</code> but <code class="i">3-1=2</code>. Check <b>both</b> directions with <code class="i">||</code>.</p>
+
+    <h3>Test</h3>
+    <p><code class="i">k = 2</code> on <code class="i">1 3 4 2 5</code> → all of <code class="i">3 1</code>, <code class="i">4 2</code>, <code class="i">5 3</code> print.</p>
+    <p style="color:var(--muted)">In interviews most write only one direction — the full answer (both directions) is what stands out.</p>
+
+    <div class="code">
+      <div class="bar"><span>PairsWithDiffK.java (condition)</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">if</span> (ar[i] - ar[j] == k || ar[j] - ar[i] == k)
+{
+    System.out.println(ar[i] + <span class="st">" "</span> + ar[j]);
+}</code></pre>
+    </div>
+    <div class="run">
+      <div class="rbar">▶ Run · PairsWithDiffK</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">1 3 4 2 5</div><div class="in">2<span class="cmt">   &larr; k</span></div><div class="out">1 3
+3 5
+4 2</div></div>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+
+<!-- VARIATIONS -->
+<section class="prog">
+  <h2><span class="tag">4·±</span> One-line variations</h2>
+  <div class="body">
+    <p>Same nested loop — only the <code class="i">if</code> condition changes:</p>
+    <div class="tw">
+    <table>
+      <tr><th>Variation</th><th>Condition</th></tr>
+      <tr><td>Pair sum is even</td><td><code>(ar[i] + ar[j]) % 2 == 0</code></td></tr>
+      <tr><td>First number even</td><td><code>ar[i] % 2 == 0</code></td></tr>
+      <tr><td>First number odd</td><td><code>ar[i] % 2 != 0</code></td></tr>
+      <tr><td>Second number even / odd</td><td><code>ar[j] % 2 == 0</code> / <code>!= 0</code></td></tr>
+      <tr><td>Pair sum is prime</td><td><code>isPrime(ar[i] + ar[j])</code> — call existing method</td></tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 4</h2>
+  <p><b>Array Pairs module — all 18 programs.</b> Print all pairs, pairs with sum k, even pairs, odd pairs, pairs with product, pairs greater than k, etc. Each is one base program + a one-line change.</p>
+  <p class="tm">Complete Array Traversal 1 &amp; 2 today. Monday: continue arrays (sorted arrays, subarrays, rearrange arrays).</p>
+</section>
+
+<div class="part"><span>Day 5 · Sorted Arrays</span></div>
+
+<!-- 5.1 OCCURRENCE OF EACH -->
+<section class="prog">
+  <h2><span class="tag">5·1</span> Occurrence of each element</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Sorted array of n integers — print how many times each element occurs. <b>Time O(n), Space O(1).</b></div>
+
+    <h3>Key insight</h3>
+    <ul>
+      <li>In a sorted array, equal values are always adjacent — so compare <code class="i">ar[i]</code> with <code class="i">ar[i+1]</code>.</li>
+      <li>Equal → same group → <code class="i">count++</code>. Not equal → group ended → print <code class="i">ar[i] + count</code>, then reset.</li>
+    </ul>
+
+    <h3>Three gotchas (all shown live)</h3>
+    <ol class="steps">
+      <li><code class="i">count</code> starts at <b>1</b> and resets to <b>1</b>, not 0 (else it lands one short).</li>
+      <li>Loop to <code class="i">length-1</code> — <code class="i">ar[i+1]</code> at the last index throws <code class="i">ArrayIndexOutOfBounds</code>.</li>
+      <li>The last group never hits an "else" — print it <b>after</b> the loop using <code class="i">ar[length-1]</code>.</li>
+    </ol>
+
+    <div class="code">
+      <div class="bar"><span>PrintOccurrence.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintOccurrence</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printOccurrence</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i] == ar[i + <span class="st">1</span>])
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                System.out.println(ar[i] + <span class="st">" "</span> + count);
+                count = <span class="st">1</span>;
+            }
+        }
+
+        System.out.println(ar[ar.length - <span class="st">1</span>] + <span class="st">" "</span> + count);
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printOccurrence(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintOccurrence</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">2 2 2 3 4 4 4 23</div><div class="out">2 3
+3 1
+4 3
+23 1<span class="cmt">   // element  count</span></div></div>
+        <div class="rrun"><div class="in">7</div><div class="in">-9 -9 -9 -2 -2 -1 -1</div><div class="out">-9 3
+-2 2
+-1 2<span class="cmt">   // negatives work too</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5.2 DISTINCT (no repeat) -->
+<section class="prog">
+  <h2><span class="tag">5·2</span> Print elements without repeating</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print each distinct value once: <span class="arr">2 2 2 3 4 4 4 23</span> → <span class="arr">2 3 4 23</span>.</div>
+
+    <h3>Idea</h3>
+    <ul>
+      <li>Same skeleton, but no count needed — print the value when a group ends.</li>
+      <li><b>Optimization:</b> flip the test to <code class="i">ar[i] != ar[i+1]</code>, print inside the <code class="i">if</code>, drop <code class="i">count</code> and the <code class="i">else</code> entirely.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>PrintElements.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintElements</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printElements</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i] != ar[i + <span class="st">1</span>])
+            {
+                System.out.print(ar[i] + <span class="st">" "</span>);
+            }
+        }
+
+        System.out.print(ar[ar.length - <span class="st">1</span>] + <span class="st">" "</span>);
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printElements(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintElements</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">2 2 2 3 4 4 4 23</div><div class="out">2 3 4 23</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5.3 UNIQUE (occurs once) -->
+<section class="prog">
+  <h2><span class="tag">5·3</span> Print unique elements (occur exactly once)</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print only values that appear once: <span class="arr">2 2 2 3 4 4 4 23</span> → <span class="arr">3 23</span>.</div>
+
+    <h3>Idea</h3>
+    <p>Keep <code class="i">count</code> from 5·1, but guard both prints (in-loop and last) with <code class="i">if (count == 1)</code>. Keep <code class="i">count = 1</code> reset <b>outside</b> the inner if, or it never resets.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintUniqueElements.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintUniqueElements</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printUniqueElements</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i] == ar[i + <span class="st">1</span>])
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                <span class="kw">if</span> (count == <span class="st">1</span>)
+                {
+                    System.out.print(ar[i] + <span class="st">" "</span>);
+                }
+
+                count = <span class="st">1</span>;
+            }
+        }
+
+        <span class="kw">if</span> (count == <span class="st">1</span>)
+        {
+            System.out.print(ar[ar.length - <span class="st">1</span>] + <span class="st">" "</span>);
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printUniqueElements(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintUniqueElements</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">2 2 2 3 4 4 4 23</div><div class="out">3 23</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5.4 COUNT UNIQUE + variations -->
+<section class="prog">
+  <h2><span class="tag">5·4</span> Count unique elements</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Count how many values appear exactly once → output is a single number.</div>
+
+    <h3>Idea</h3>
+    <p>Instead of printing, increment a second counter. <code class="i">uniqueCount</code> starts at <b>0</b> (not 1) and goes up whenever <code class="i">count == 1</code> at a group boundary.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintUniqueElementsCount.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintUniqueElementsCount</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">printUniqueElementsCount</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+        <span class="ty">int</span> uniqueCount = <span class="st">0</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i] == ar[i + <span class="st">1</span>])
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                <span class="kw">if</span> (count == <span class="st">1</span>)
+                {
+                    uniqueCount++;
+                }
+
+                count = <span class="st">1</span>;
+            }
+        }
+
+        <span class="kw">if</span> (count == <span class="st">1</span>)
+        {
+            uniqueCount++;
+        }
+
+        <span class="kw">return</span> uniqueCount;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(printUniqueElementsCount(ar));
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintUniqueElementsCount</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">2 2 2 3 4 4 4 23</div><div class="out">2<span class="cmt">   // 3 and 23</span></div></div>
+      </div>
+    </div>
+
+    <h3>One-line variations (change the count test)</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Ask</th><th>Condition</th></tr>
+      <tr><td>Occurs exactly once</td><td><code>count == 1</code></td></tr>
+      <tr><td>Occurs more than once</td><td><code>count &gt; 1</code></td></tr>
+      <tr><td>Odd number of times</td><td><code>count % 2 != 0</code></td></tr>
+      <tr><td>Even number of times</td><td><code>count % 2 == 0</code></td></tr>
+      <tr><td>Prime number of times</td><td><code>isPrime(count)</code></td></tr>
+    </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 5.5 LARGEST REPEATING -->
+<section class="prog">
+  <h2><span class="tag">5·5</span> Largest repeating element</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the largest value that repeats. e.g. <span class="arr">2 3 3 4 5 7 7 8 9 10</span> → <b>7</b>.</div>
+
+    <h3>Idea — walk from the right</h3>
+    <ul>
+      <li>Sorted ascending → big values live on the right. To find the largest repeat, <b>start from the end</b> and move left; the first adjacent-equal pair you hit is the answer.</li>
+      <li>(Silk Board / Banashankari: start from the stop nearest what you're looking for.)</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>LargestRepeating.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">LargestRepeating</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">largestRepeating</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = ar.length - <span class="st">2</span>; i &gt;= <span class="st">0</span>; i--)
+        {
+            <span class="kw">if</span> (ar[i] == ar[i + <span class="st">1</span>])
+            {
+                <span class="kw">return</span> ar[i];
+            }
+        }
+
+        <span class="kw">return</span> -<span class="st">1</span>;   <span class="cm">// no repeating element</span>
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        System.out.print(largestRepeating(ar));
+    }
+}</code></pre>
+    </div>
+
+    <p style="color:var(--muted)">Equivalent: start <code class="i">i = length-1</code> down to <code class="i">1</code> and compare <code class="i">ar[i] == ar[i-1]</code> → same result.</p>
+
+    <div class="run">
+      <div class="rbar">▶ Run · LargestRepeating</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">2 3 3 4 5 7 7 8 9 10</div><div class="out">7</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DAY 5 HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 5</h2>
+  <p><b>Sorted-array pattern set on the platform</b> — occurrences, distinct, unique, unique count (and its once / more-than-once / odd / even / prime variations), largest repeating. Each is one base program + a one-line change.</p>
+  <p class="tm">Note: unsorted version of these needs HashMap (coming in ~1–2 weeks). Target — be fully prepped for TCS NQT (Mar 10): all Programming + TCS company questions solved.</p>
+</section>
+
+<div class="part"><span>Day 6 · Two Sorted Arrays</span></div>
+
+<!-- 6.1 COMMON ELEMENTS -->
+<section class="prog">
+  <h2><span class="tag">6·1</span> Common elements in two sorted arrays</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Two sorted arrays — print values present in both. Duplicates print only as many times as they pair up. <b>O(n+m), no nested loops.</b></div>
+
+    <h3>Two-pointer idea</h3>
+    <ul>
+      <li>Pointer <code class="i">i</code> on <code class="i">ar1</code>, <code class="i">j</code> on <code class="i">ar2</code>. Because both are sorted, the smaller front can never appear later in the other array.</li>
+      <li>Equal → print, advance <b>both</b>. Else advance whichever front is smaller.</li>
+      <li><code class="i">while</code> guard needs <b>both</b> pointers in range → <code class="i">&amp;&amp;</code>.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>CommonElements.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">CommonElements</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printCommonElements</span>(<span class="ty">int</span>[] ar1, <span class="ty">int</span>[] ar2)
+    {
+        <span class="ty">int</span> i = <span class="st">0</span>;
+        <span class="ty">int</span> j = <span class="st">0</span>;
+
+        <span class="kw">while</span> (i &lt; ar1.length &amp;&amp; j &lt; ar2.length)
+        {
+            <span class="kw">if</span> (ar1[i] == ar2[j])
+            {
+                System.out.print(ar1[i] + <span class="st">" "</span>);
+                i++;
+                j++;
+            }
+            <span class="kw">else if</span> (ar1[i] &gt; ar2[j])
+            {
+                j++;
+            }
+            <span class="kw">else</span>
+            {
+                i++;
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n1 = scan.nextInt();
+        <span class="ty">int</span>[] ar1 = <span class="kw">new</span> <span class="ty">int</span>[n1];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n1; i++)
+        {
+            ar1[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> n2 = scan.nextInt();
+        <span class="ty">int</span>[] ar2 = <span class="kw">new</span> <span class="ty">int</span>[n2];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n2; i++)
+        {
+            ar2[i] = scan.nextInt();
+        }
+
+        printCommonElements(ar1, ar2);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · CommonElements</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">2 3 6 8 9</div><div class="in">7</div><div class="in">1 2 3 5 6 8 8</div><div class="out">2 3 6 8<span class="cmt">   // 8 pairs once even though ar2 has two 8s</span></div></div>
+      </div>
+    </div>
+
+    <h3>Variations</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Ask</th><th>Change</th></tr>
+      <tr><td>Common even / odd only</td><td>wrap the print in <code>if (ar1[i] % 2 == 0)</code> / <code>!= 0</code></td></tr>
+      <tr><td>Divisible by k / prime</td><td>same guard: <code>ar1[i] % k == 0</code> / <code>isPrime(ar1[i])</code></td></tr>
+      <tr><td>Both arrays descending</td><td>flip the <code>&gt;</code> to <code>&lt;</code></td></tr>
+      <tr><td>One asc + one desc</td><td>walk the descending one from its last index (<code>start length-1, i--</code>)</td></tr>
+    </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 6.2 MERGE TWO SORTED ARRAYS -->
+<section class="prog">
+  <h2><span class="tag">6·2</span> Merge two sorted arrays</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Merge two sorted arrays into one sorted array — <b>without</b> running a sort algorithm.</div>
+
+    <h3>Idea</h3>
+    <ul>
+      <li>Arrays are fixed size → make <code class="i">res</code> of size <code class="i">ar1.length + ar2.length</code>.</li>
+      <li>Compare the two fronts, copy the smaller into <code class="i">res</code>, advance that pointer. <code class="i">res[k++] = ar1[i++]</code> does copy + advance in one line.</li>
+      <li>When one array runs out, <b>drain</b> the other with two while loops — only one actually runs.</li>
+      <li>Main <code class="i">while</code> uses <code class="i">&amp;&amp;</code> (<code class="i">||</code> reads past an exhausted array → <code class="i">ArrayIndexOutOfBounds</code>). Forgetting the drain loops leaves trailing 0s.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>MergeSortedArrays.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MergeSortedArrays</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span>[] <span class="nm">mergeArrays</span>(<span class="ty">int</span>[] ar1, <span class="ty">int</span>[] ar2)
+    {
+        <span class="ty">int</span>[] res = <span class="kw">new</span> <span class="ty">int</span>[ar1.length + ar2.length];
+
+        <span class="ty">int</span> i = <span class="st">0</span>;
+        <span class="ty">int</span> j = <span class="st">0</span>;
+        <span class="ty">int</span> k = <span class="st">0</span>;
+
+        <span class="kw">while</span> (i &lt; ar1.length &amp;&amp; j &lt; ar2.length)
+        {
+            <span class="kw">if</span> (ar1[i] &lt;= ar2[j])
+            {
+                res[k++] = ar1[i++];
+            }
+            <span class="kw">else</span>
+            {
+                res[k++] = ar2[j++];
+            }
+        }
+
+        <span class="kw">while</span> (j &lt; ar2.length)
+        {
+            res[k++] = ar2[j++];
+        }
+
+        <span class="kw">while</span> (i &lt; ar1.length)
+        {
+            res[k++] = ar1[i++];
+        }
+
+        <span class="kw">return</span> res;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n1 = scan.nextInt();
+        <span class="ty">int</span>[] ar1 = <span class="kw">new</span> <span class="ty">int</span>[n1];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n1; i++)
+        {
+            ar1[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> n2 = scan.nextInt();
+        <span class="ty">int</span>[] ar2 = <span class="kw">new</span> <span class="ty">int</span>[n2];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n2; i++)
+        {
+            ar2[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span>[] res = mergeArrays(ar1, ar2);
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; res.length; i++)
+        {
+            System.out.print(res[i] + <span class="st">" "</span>);
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · MergeSortedArrays</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">1 3 5 7 9</div><div class="in">8</div><div class="in">4 6 7 8 9 15 16 19</div><div class="out">1 3 4 5 6 7 7 8 9 9 15 16 19</div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted)">Cleanup shown live: fold each <code class="i">res[k]=…; k++;</code> pair into <code class="i">res[k++]=…</code> (same for i, j) — the code shrinks by half with identical output.</p>
+
+  </div>
+</section>
+
+<!-- DAY 6 HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 6</h2>
+  <p><b>Two-sorted-array set on the platform</b> — common elements (even / odd / divisible / prime variations), both-descending and mixed-order versions, and merge two sorted arrays. Unsorted versions wait for Set / HashMap.</p>
+  <p class="tm">Today is Mar 3 — TCS NQT starts Mar 10. Apply if you haven't, and get through every Programming + TCS company question before then.</p>
+</section>
+
+<div class="part"><span>Day 7 · Merge Three Arrays</span></div>
+
+<!-- 7.1 MERGE THREE (INTERLEAVED) -->
+<section class="prog">
+  <h2><span class="tag">7·1</span> Merge three arrays (interleaved)</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Merge three arrays by taking one element from each in turn: ar1[0], ar2[0], ar3[0], ar1[1], ar2[1]… Inputs may be sorted or unsorted — this is round-robin, <b>not</b> a sorted merge.</div>
+
+    <h3>Idea</h3>
+    <ul>
+      <li><code class="i">res</code> size = <code class="i">ar1.length + ar2.length + ar3.length</code>.</li>
+      <li>One shared index <code class="i">i</code> reads the same position from all three; <code class="i">k</code> walks <code class="i">res</code>.</li>
+      <li>Each pick is guarded by <code class="i">if (i &lt; arX.length)</code> — a shorter array is simply skipped once exhausted (else <code class="i">ArrayIndexOutOfBounds</code>).</li>
+      <li><code class="i">res[k++] = …</code> folds copy + advance; <code class="i">i++</code> once per round; loop while <code class="i">k &lt; res.length</code>.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>MergeThreeArrays.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">MergeThreeArrays</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span>[] <span class="nm">mergeArrays</span>(<span class="ty">int</span>[] ar1, <span class="ty">int</span>[] ar2, <span class="ty">int</span>[] ar3)
+    {
+        <span class="ty">int</span>[] res = <span class="kw">new</span> <span class="ty">int</span>[ar1.length + ar2.length + ar3.length];
+
+        <span class="ty">int</span> i = <span class="st">0</span>;
+        <span class="ty">int</span> k = <span class="st">0</span>;
+
+        <span class="kw">while</span> (k &lt; res.length)
+        {
+            <span class="kw">if</span> (i &lt; ar1.length)
+            {
+                res[k++] = ar1[i];
+            }
+
+            <span class="kw">if</span> (i &lt; ar2.length)
+            {
+                res[k++] = ar2[i];
+            }
+
+            <span class="kw">if</span> (i &lt; ar3.length)
+            {
+                res[k++] = ar3[i];
+            }
+
+            i++;
+        }
+
+        <span class="kw">return</span> res;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n1 = scan.nextInt();
+        <span class="ty">int</span>[] ar1 = <span class="kw">new</span> <span class="ty">int</span>[n1];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n1; i++)
+        {
+            ar1[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> n2 = scan.nextInt();
+        <span class="ty">int</span>[] ar2 = <span class="kw">new</span> <span class="ty">int</span>[n2];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n2; i++)
+        {
+            ar2[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> n3 = scan.nextInt();
+        <span class="ty">int</span>[] ar3 = <span class="kw">new</span> <span class="ty">int</span>[n3];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n3; i++)
+        {
+            ar3[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span>[] res = mergeArrays(ar1, ar2, ar3);
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; res.length; i++)
+        {
+            System.out.print(res[i] + <span class="st">" "</span>);
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · MergeThreeArrays</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">3</div><div class="in">2 3 4</div><div class="in">4</div><div class="in">5 6 7 8</div><div class="in">5</div><div class="in">9 10 11 12 30</div><div class="out">2 5 9 3 6 10 4 7 11 8 12 30</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="part"><span>Day 7 · Subarrays — new topic</span></div>
+
+<!-- 7.2 SUBARRAYS OF SIZE k -->
+<section class="prog">
+  <h2><span class="tag">7·2</span> Print all subarrays of size k</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print every subarray (contiguous slice) of a given size. A subarray must be adjacent — <span class="arr">2 4 9</span> is one, <span class="arr">2 9</span> is not.</div>
+
+    <h3>Two loops, one derived bound</h3>
+    <ul>
+      <li>Each subarray of size <code class="i">size</code> starts at some <code class="i">i</code> and runs <code class="i">j = i … i+size-1</code>.</li>
+      <li>Inner: <code class="i">j &lt; i + size</code>.</li>
+      <li>Outer stops at the last valid start: <code class="i">i &lt;= ar.length - size</code> — note <b>&lt;=</b>, not &lt;.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>PrintSubarrays.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintSubarrays</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printSubarrays</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> size)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+            {
+                System.out.print(ar[j] + <span class="st">" "</span>);
+            }
+
+            System.out.println();
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> size = scan.nextInt();
+
+        printSubarrays(ar, size);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintSubarrays</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">1 2 3 4 5 6 7 8</div><div class="in">3<span class="cmt">   &larr; size</span></div><div class="out">1 2 3
+2 3 4
+3 4 5
+4 5 6
+5 6 7
+6 7 8</div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted)">Change only <code class="i">size</code> (or the two <code class="i">size</code> uses) for size 4, 5, … n. <code class="i">size == 0</code> → empty output; a user-supplied <code class="i">size</code> already flows straight through.</p>
+
+  </div>
+</section>
+
+<!-- DAY 7 HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 7 (assigned — solved next class)</h2>
+  <p><b>Longest subarray with sum = k.</b> Given an array and a value <code class="i">k</code>, print the <b>longest</b> contiguous subarray whose elements add up to <code class="i">k</code>.</p>
+  <p>Example — array <span class="arr">1 5 0 0 1 2 0 3</span>, <code class="i">k = 6</code>. Many subarrays sum to 6 (<code class="i">1 5</code>, <code class="i">1 5 0</code>, <code class="i">5 0 0 1</code> …); the longest is <span class="arr">0 0 1 2 0 3</span>.</p>
+  <p class="tm">Try it for a full day before the next class. Also: keep solving the platform assignments, and record your self-introduction / Java answers daily. Don't paste AI-generated solutions — the point is the pattern.</p>
+</section>
+
+<div class="part"><span>Day 8 · Subarrays — fixed size k</span></div>
+
+<!-- 8.1 SUBARRAY SUM -->
+<section class="prog">
+  <h2><span class="tag">8·1</span> Subarray sum (each size-k subarray)</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> For every subarray of size <code class="i">size</code>, print its sum instead of its elements.</div>
+
+    <h3>Change from 7·2</h3>
+    <p>Before the inner loop add <code class="i">sum = 0</code>; inside it accumulate <code class="i">sum += ar[j]</code>; after it print <code class="i">sum</code> instead of a newline.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintSubarraySum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintSubarraySum</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printSubarraySum</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> size)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+        {
+            <span class="ty">int</span> sum = <span class="st">0</span>;
+
+            <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+            {
+                sum = sum + ar[j];
+            }
+
+            System.out.println(sum);
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> size = scan.nextInt();
+
+        printSubarraySum(ar, size);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintSubarraySum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">9</div><div class="in">5 1 2 4 9 3 1 3 3</div><div class="in">3<span class="cmt">   &larr; size</span></div><div class="out">8
+7
+15
+16
+13
+7
+7</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8.2 COUNT SIZE-k WITH SUM k -->
+<section class="prog">
+  <h2><span class="tag">8·2</span> Count size-k subarrays with sum = k</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Given size and a target <code class="i">k</code>, count how many size-<code class="i">size</code> subarrays sum to <code class="i">k</code>.</div>
+
+    <h3>Change from 8·1</h3>
+    <p>After computing <code class="i">sum</code>, instead of printing, test <code class="i">if (sum == k) count++</code>. Return <code class="i">count</code> at the end (never inside the loop).</p>
+
+    <div class="code">
+      <div class="bar"><span>CountSubarraySum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">CountSubarraySum</span>
+{
+    <span class="kw">public static</span> <span class="ty">int</span> <span class="nm">countSubarraySum</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> size, <span class="ty">int</span> k)
+    {
+        <span class="ty">int</span> count = <span class="st">0</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+        {
+            <span class="ty">int</span> sum = <span class="st">0</span>;
+
+            <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+            {
+                sum = sum + ar[j];
+            }
+
+            <span class="kw">if</span> (sum == k)
+            {
+                count++;
+            }
+        }
+
+        <span class="kw">return</span> count;
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> size = scan.nextInt();
+        <span class="ty">int</span> k = scan.nextInt();
+
+        System.out.print(countSubarraySum(ar, size, k));
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · CountSubarraySum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">9</div><div class="in">5 1 2 4 9 3 1 3 3</div><div class="in">3<span class="cmt">   &larr; size</span></div><div class="in">7<span class="cmt">   &larr; k</span></div><div class="out">3<span class="cmt">   // 1 2 4  ·  3 1 3  ·  1 3 3</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8.3 PRINT SIZE-k WITH SUM k -->
+<section class="prog">
+  <h2><span class="tag">8·3</span> Print size-k subarrays with sum = k</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the actual subarrays (not the count) whose size is <code class="i">size</code> and whose sum is <code class="i">k</code>.</div>
+
+    <h3>Key point</h3>
+    <p>When <code class="i">sum == k</code> you must <b>re-traverse</b> <code class="i">i … i+size</code> to print the elements — a bare <code class="i">print(ar[j])</code> without its own loop is wrong. <code class="i">j</code> is block-scoped, so it can be declared again.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintSubarrays.java (sum = k)</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintSubarrays</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printSubarrays</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> size, <span class="ty">int</span> k)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+        {
+            <span class="ty">int</span> sum = <span class="st">0</span>;
+
+            <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+            {
+                sum = sum + ar[j];
+            }
+
+            <span class="kw">if</span> (sum == k)
+            {
+                <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+                {
+                    System.out.print(ar[j] + <span class="st">" "</span>);
+                }
+
+                System.out.println();
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> size = scan.nextInt();
+        <span class="ty">int</span> k = scan.nextInt();
+
+        printSubarrays(ar, size, k);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintSubarrays (sum = k)</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">9</div><div class="in">5 1 2 4 9 3 1 3 3</div><div class="in">3<span class="cmt">   &larr; size</span></div><div class="in">7<span class="cmt">   &larr; k</span></div><div class="out">1 2 4
+3 1 3
+1 3 3</div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted)">Two <code class="i">printSubarrays</code> now exist (2-param and 3-param) — that's method overloading; Java picks by argument count.</p>
+
+  </div>
+</section>
+
+<div class="part"><span>Day 8 · Subarrays — all sizes</span></div>
+
+<!-- 8.4 PRINT ALL SUBARRAYS -->
+<section class="prog">
+  <h2><span class="tag">8·4</span> Print all subarrays (every size)</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> No size given — print all subarrays of sizes 1, 2, 3 … n.</div>
+
+    <h3>Build-up → one triple loop</h3>
+    <ul>
+      <li>Calling <code class="i">printSubarrays(ar, size)</code> for <code class="i">size = 1…n</code> works; then inline it — the size loop wraps the same two loops.</li>
+      <li>Three loops total: <b>size</b> (which length), <b>i</b> (which start), <b>j</b> (walk the slice).</li>
+      <li>Reverse order (longest first): make the size loop <code class="i">size = ar.length; size &gt;= 1; size--</code>.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>PrintAllSubarrays.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintAllSubarrays</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printAllSubarrays</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> size = <span class="st">1</span>; size &lt;= ar.length; size++)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+            {
+                <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+                {
+                    System.out.print(ar[j] + <span class="st">" "</span>);
+                }
+
+                System.out.println();
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printAllSubarrays(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintAllSubarrays</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">1 2 3 4 5</div><div class="out">1
+2
+3
+4
+5
+1 2
+2 3
+3 4
+4 5
+1 2 3
+2 3 4
+3 4 5
+1 2 3 4
+2 3 4 5
+1 2 3 4 5</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8.5 SUM/COUNT/PRINT OVER ALL SUBARRAYS -->
+<section class="prog">
+  <h2><span class="tag">8·5</span> Sum of all subarrays (+ count / print with k)</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the sum of every subarray (all sizes). Same triple loop with a running <code class="i">sum</code>.</div>
+
+    <div class="code">
+      <div class="bar"><span>PrintAllSubarraysSum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintAllSubarraysSum</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printAllSubarraysSum</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> size = <span class="st">1</span>; size &lt;= ar.length; size++)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+            {
+                <span class="ty">int</span> sum = <span class="st">0</span>;
+
+                <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+                {
+                    sum = sum + ar[j];
+                }
+
+                System.out.println(sum);
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printAllSubarraysSum(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintAllSubarraysSum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">5</div><div class="in">3 5 1 7 2</div><div class="out">3
+5
+1
+7
+2
+8
+6
+8
+9
+9
+13
+10
+16
+15
+18</div></div>
+      </div>
+    </div>
+
+    <h3>Same loop, other asks</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Ask</th><th>Inside the innermost block, after sum</th></tr>
+      <tr><td>Count subarrays with sum = k</td><td><code>if (sum == k) count++;</code> → return count</td></tr>
+      <tr><td>Print subarrays with sum = k</td><td><code>if (sum == k)</code> → re-loop <code>j = i…i+size</code> and print</td></tr>
+    </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 8.6 LONGEST SUBARRAY SUM k -->
+<section class="prog">
+  <h2><span class="tag">8·6</span> Longest subarray with sum = k <span style="font-size:12px;color:var(--muted)">(Day 7 homework)</span></h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print only the <b>longest</b> subarray whose sum equals <code class="i">k</code>.</div>
+
+    <h3>The trick</h3>
+    <ul>
+      <li>Loop sizes from <b>largest to smallest</b> — the first match found is the longest.</li>
+      <li><code class="i">break</code> exits only the innermost loop → it prints one per size (wrong). Use <code class="i">return</code> to leave the whole method after the first hit.</li>
+      <li>Method is <code class="i">void</code>, so it's an empty <code class="i">return;</code> — <code class="i">return 0;</code> would not compile.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>LongestSubarraySum.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">LongestSubarraySum</span>
+{
+    <span class="kw">public static void</span> <span class="nm">longestSubarraySum</span>(<span class="ty">int</span>[] ar, <span class="ty">int</span> k)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> size = ar.length; size &gt;= <span class="st">1</span>; size--)
+        {
+            <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt;= ar.length - size; i++)
+            {
+                <span class="ty">int</span> sum = <span class="st">0</span>;
+
+                <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+                {
+                    sum = sum + ar[j];
+                }
+
+                <span class="kw">if</span> (sum == k)
+                {
+                    <span class="kw">for</span> (<span class="ty">int</span> j = i; j &lt; i + size; j++)
+                    {
+                        System.out.print(ar[j] + <span class="st">" "</span>);
+                    }
+
+                    System.out.println();
+                    <span class="kw">return</span>;
+                }
+            }
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        <span class="ty">int</span> k = scan.nextInt();
+
+        longestSubarraySum(ar, k);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · LongestSubarraySum</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">1 5 0 0 1 2 0 3</div><div class="in">6<span class="cmt">   &larr; k</span></div><div class="out">0 0 1 2 0 3<span class="cmt">   // longest slice summing to 6</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DAY 8 HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 8</h2>
+  <p><b>Subarrays set on the platform</b> — subarray sum, count with sum = k, print with sum = k, all subarrays (both orders), sum of all subarrays, count/print all with sum = k, and longest subarray with sum = k. Every one is the same nested-loop template with a one-line change to the innermost action.</p>
+  <p class="tm">Keep the streak going and solve these on the platform, not by pasting AI output — the pattern is the point.</p>
+</section>
+
+<div class="part"><span>Day 9 · Rearrange Arrays</span></div>
+
+<!-- 9.1 MOVE -1 TO FRONT -->
+<section class="prog">
+  <h2><span class="tag">9·1</span> Move all −1 to the front</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Array has positives and <code class="i">-1</code>s. Push every <code class="i">-1</code> to the left, keep the positives in their <b>original relative order</b>. <b>No new array</b>, no sorting.</div>
+
+    <h3>Two pointers, walking backward</h3>
+    <ul>
+      <li>The <b>last</b> element stays put in the answer → start from the end.</li>
+      <li><code class="i">i</code> <b>fetches</b>, <code class="i">j</code> <b>stores</b>. Both begin at <code class="i">length-1</code>.</li>
+      <li><code class="i">ar[i] == -1</code> → skip it: only <code class="i">i--</code> (<code class="i">j</code> waits for a positive to land there).</li>
+      <li>Else copy: <code class="i">ar[j--] = ar[i--]</code>.</li>
+      <li>When <code class="i">i</code> falls below 0, everything from <code class="i">j</code> leftward is stale → fill it with <code class="i">-1</code>.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>RearrangeMinusOne.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">RearrangeMinusOne</span>
+{
+    <span class="kw">public static void</span> <span class="nm">rearrangeArray</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> i = ar.length - <span class="st">1</span>;
+        <span class="ty">int</span> j = ar.length - <span class="st">1</span>;
+
+        <span class="kw">while</span> (i &gt;= <span class="st">0</span>)
+        {
+            <span class="kw">if</span> (ar[i] == -<span class="st">1</span>)
+            {
+                i--;
+            }
+            <span class="kw">else</span>
+            {
+                ar[j--] = ar[i--];
+            }
+        }
+
+        <span class="kw">while</span> (j &gt;= <span class="st">0</span>)
+        {
+            ar[j--] = -<span class="st">1</span>;
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        rearrangeArray(ar);
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            System.out.print(ar[i] + <span class="st">" "</span>);
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · RearrangeMinusOne</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">5 -1 3 -1 4 -1 5 3 8 2</div><div class="out">-1 -1 -1 5 3 4 5 3 8 2<span class="cmt">   // positives keep their order</span></div></div>
+      </div>
+    </div>
+
+    <h3>Why the caller sees the change</h3>
+    <p>The method is <code class="i">void</code> and returns nothing, yet <code class="i">main</code> prints the rearranged array. An array is an <b>object</b> — passing <code class="i">ar</code> passes the <b>reference</b> (say address 3000), not a copy. Both <code class="i">ar</code> variables point to the same heap object, so edits inside the method are visible outside.</p>
+
+  </div>
+</section>
+
+<!-- 9.2 MOVE ZEROS TO END -->
+<section class="prog">
+  <h2><span class="tag">9·2</span> Move all zeros to the end</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Same idea, mirrored: push every <code class="i">0</code> to the right, keeping the non-zeros in order.</div>
+
+    <h3>Flip the direction</h3>
+    <ul>
+      <li>Now the <b>first</b> element stays put → traverse <b>forward</b>, both pointers from 0.</li>
+      <li><code class="i">ar[i] == 0</code> → skip: only <code class="i">i++</code>. Else <code class="i">ar[j++] = ar[i++]</code>.</li>
+      <li>After the loop, fill from <code class="i">j</code> to the end with <code class="i">0</code>.</li>
+      <li>A <code class="i">for</code> loop works just as well as <code class="i">while</code> — same O(n).</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>RearrangeZeros.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">RearrangeZeros</span>
+{
+    <span class="kw">public static void</span> <span class="nm">rearrangeArray</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> i = <span class="st">0</span>;
+        <span class="ty">int</span> j = <span class="st">0</span>;
+
+        <span class="kw">while</span> (i &lt; ar.length)
+        {
+            <span class="kw">if</span> (ar[i] == <span class="st">0</span>)
+            {
+                i++;
+            }
+            <span class="kw">else</span>
+            {
+                ar[j++] = ar[i++];
+            }
+        }
+
+        <span class="kw">while</span> (j &lt; ar.length)
+        {
+            ar[j++] = <span class="st">0</span>;
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        rearrangeArray(ar);
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length; i++)
+        {
+            System.out.print(ar[i] + <span class="st">" "</span>);
+        }
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · RearrangeZeros</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">3 7 0 4 0 5 0 6</div><div class="out">3 7 4 5 6 0 0 0<span class="cmt">   // non-zeros keep their order</span></div></div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted)">Pattern to remember: whichever side must stay fixed decides the traversal direction. Fetch pointer <code class="i">i</code> always moves; store pointer <code class="i">j</code> moves only when a keeper is copied. Then backfill the tail with the filler value.</p>
+
+  </div>
+</section>
+
+<!-- DAY 9 HOMEWORK -->
+<section class="hw">
+  <h2><span class="tag">HW</span> Homework · Day 9</h2>
+  <p><b>Rearrange Arrays module</b> — six programs, all small variations of the two above (filler value, which side, which direction).</p>
+  <p class="tm">Everything through Module 10 should be done: data types → if-else → loops → array traversal 1 &amp; 2 → array pairs → sorted arrays → multiple arrays → subarrays → rearrange arrays. Next up: one more array set, then <b>Strings</b>.</p>
+</section>
+
+<div class="part"><span>Day 10 · Consecutive Subarrays</span></div>
+
+<!-- 10.1 PRINT CONSECUTIVE SUBARRAYS -->
+<section class="prog">
+  <h2><span class="tag">10·1</span> Print all consecutive subarrays</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print every run of consecutive numbers on its own line. <span class="arr">5 12 13 14 9 2 3 4 5 23</span> → <code class="i">5</code> / <code class="i">12 13 14</code> / <code class="i">9</code> / <code class="i">2 3 4 5</code> / <code class="i">23</code>.</div>
+
+    <h3>Idea</h3>
+    <ul>
+      <li>Two elements are consecutive when <code class="i">ar[i+1] - ar[i] == 1</code>.</li>
+      <li>Consecutive → print <code class="i">ar[i]</code>, stay on the line. Not consecutive → print <code class="i">ar[i]</code>, then <b>newline</b> (the run just ended).</li>
+      <li>Loop to <code class="i">length-1</code> (else <code class="i">ar[i+1]</code> overflows), then print the last element after the loop.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>PrintConsecutiveElements.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintConsecutiveElements</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printConsecutiveElements</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i + <span class="st">1</span>] - ar[i] == <span class="st">1</span>)
+            {
+                System.out.print(ar[i] + <span class="st">" "</span>);
+            }
+            <span class="kw">else</span>
+            {
+                System.out.print(ar[i] + <span class="st">" "</span>);
+                System.out.println();
+            }
+        }
+
+        System.out.println(ar[ar.length - <span class="st">1</span>]);
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printConsecutiveElements(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintConsecutiveElements</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">5 12 13 14 9 2 3 4 5 23</div><div class="out">5
+12 13 14
+9
+2 3 4 5
+23</div></div>
+        <div class="rrun"><div class="in">5</div><div class="in">-9 -8 -7 3 4</div><div class="out">-9 -8 -7
+3 4<span class="cmt">   // negatives work unchanged</span></div></div>
+      </div>
+    </div>
+
+    <h3>Variations</h3>
+    <div class="tw">
+    <table>
+      <tr><th>Ask</th><th>Condition</th></tr>
+      <tr><td>Consecutive descending</td><td><code>ar[i] - ar[i+1] == 1</code> &nbsp;or&nbsp; <code>ar[i+1] - ar[i] == -1</code></td></tr>
+      <tr><td>Two equal adjacent values</td><td>not consecutive — they print on separate lines</td></tr>
+    </table>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10.2 LENGTHS -->
+<section class="prog">
+  <h2><span class="tag">10·2</span> Length of each consecutive subarray</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the length of each run instead of its elements → <code class="i">1 3 1 4 1</code>.</div>
+
+    <h3>Change from 10·1</h3>
+    <p>Add <code class="i">count = 1</code>. Consecutive → <code class="i">count++</code>. Run ends → print <code class="i">count</code>, reset to <b>1</b>. Print <code class="i">count</code> once more after the loop for the final run.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintConsecutiveElementsLength.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintConsecutiveElementsLength</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printConsecutiveElementsLength</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i + <span class="st">1</span>] - ar[i] == <span class="st">1</span>)
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                System.out.print(count + <span class="st">" "</span>);
+                count = <span class="st">1</span>;
+            }
+        }
+
+        System.out.println(count);
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printConsecutiveElementsLength(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintConsecutiveElementsLength</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">5 12 13 14 9 2 3 4 5 23</div><div class="out">1 3 1 4 1</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10.3 MAX LENGTH -->
+<section class="prog">
+  <h2><span class="tag">10·3</span> Length of the longest consecutive subarray</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print only the largest of those lengths → <b>4</b>.</div>
+
+    <h3>Change from 10·2</h3>
+    <p>Don't print <code class="i">count</code> — compare it: <code class="i">if (count &gt; max) max = count;</code> at every run boundary, <b>and once more after the loop</b> (the last run may be the longest). Print <code class="i">max</code> at the end.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintConsecutiveMaxLength.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintConsecutiveMaxLength</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printConsecutiveMaxLength</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+        <span class="ty">int</span> max = <span class="st">0</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i + <span class="st">1</span>] - ar[i] == <span class="st">1</span>)
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                <span class="kw">if</span> (count &gt; max)
+                {
+                    max = count;
+                }
+
+                count = <span class="st">1</span>;
+            }
+        }
+
+        <span class="kw">if</span> (count &gt; max)
+        {
+            max = count;
+        }
+
+        System.out.println(max);
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printConsecutiveMaxLength(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintConsecutiveMaxLength</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">5 12 13 14 9 2 3 4 5 23</div><div class="out">4<span class="cmt">   // 2 3 4 5</span></div></div>
+        <div class="rrun"><div class="in">10</div><div class="in">5 12 13 14 9 2 3 4 5 6</div><div class="out">5<span class="cmt">   // last run is longest — needs the check after the loop</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10.4 LONGEST SUBARRAY -->
+<section class="prog">
+  <h2><span class="tag">10·4</span> Print the longest consecutive subarray</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the elements of the longest run itself → <code class="i">2 3 4 5</code>.</div>
+
+    <h3>The runner analogy</h3>
+    <p>If a stopwatch says you ran <b>5 km</b> and the marker board reads <b>8 km</b>, where did you start? <code class="i">8 − 5 = 3</code>. Same here: knowing the <b>end index</b> and the <b>length</b> gives the start.</p>
+
+    <h3>Idea</h3>
+    <ul>
+      <li>Track <code class="i">ei</code> (end index) alongside <code class="i">max</code> — whenever <code class="i">max</code> updates inside the loop, set <code class="i">ei = i</code>. In the after-loop check, set <code class="i">ei = ar.length - 1</code> (<code class="i">i</code> isn't in scope).</li>
+      <li>Then <code class="i">si = ei - max + 1</code> — the <b>+1</b> because both ends are inclusive.</li>
+      <li>Print <code class="i">ar[si] … ar[ei]</code>.</li>
+    </ul>
+    <p style="color:var(--muted)">Here: <code class="i">ei = 8</code>, <code class="i">max = 4</code> → <code class="i">si = 8 − 4 + 1 = 5</code> → indexes 5..8 = <code class="i">2 3 4 5</code>.</p>
+
+    <div class="code">
+      <div class="bar"><span>PrintLongestConsecutiveSubarray.java</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">import</span> java.util.Scanner;
+
+<span class="kw">public class</span> <span class="ty">PrintLongestConsecutiveSubarray</span>
+{
+    <span class="kw">public static void</span> <span class="nm">printLongestConsecutiveSubarray</span>(<span class="ty">int</span>[] ar)
+    {
+        <span class="ty">int</span> count = <span class="st">1</span>;
+        <span class="ty">int</span> max = <span class="st">0</span>;
+        <span class="ty">int</span> si = <span class="st">0</span>;
+        <span class="ty">int</span> ei = <span class="st">0</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+        {
+            <span class="kw">if</span> (ar[i + <span class="st">1</span>] - ar[i] == <span class="st">1</span>)
+            {
+                count++;
+            }
+            <span class="kw">else</span>
+            {
+                <span class="kw">if</span> (count &gt; max)
+                {
+                    max = count;
+                    ei = i;
+                }
+
+                count = <span class="st">1</span>;
+            }
+        }
+
+        <span class="kw">if</span> (count &gt; max)
+        {
+            max = count;
+            ei = ar.length - <span class="st">1</span>;
+        }
+
+        si = ei - max + <span class="st">1</span>;
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = si; i &lt;= ei; i++)
+        {
+            System.out.print(ar[i] + <span class="st">" "</span>);
+        }
+    }
+
+    <span class="kw">public static void</span> <span class="nm">main</span>(<span class="ty">String</span>[] args)
+    {
+        <span class="ty">Scanner</span> scan = <span class="kw">new</span> <span class="ty">Scanner</span>(System.in);
+
+        <span class="ty">int</span> n = scan.nextInt();
+        <span class="ty">int</span>[] ar = <span class="kw">new</span> <span class="ty">int</span>[n];
+
+        <span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; n; i++)
+        {
+            ar[i] = scan.nextInt();
+        }
+
+        printLongestConsecutiveSubarray(ar);
+    }
+}</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintLongestConsecutiveSubarray</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">10</div><div class="in">5 12 13 14 9 2 3 4 5 23</div><div class="out">2 3 4 5</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 10.5 SORTED SUBARRAYS -->
+<section class="prog">
+  <h2><span class="tag">10·5</span> Sorted subarrays — one condition away</h2>
+  <div class="body">
+
+    <div class="q"><b>Q.</b> Print the sorted (non-decreasing) runs instead of the consecutive ones.</div>
+
+    <h3>Only the condition changes</h3>
+    <ul>
+      <li>Consecutive: <code class="i">ar[i+1] - ar[i] == 1</code> &nbsp;→&nbsp; Sorted: <code class="i">ar[i+1] &gt; ar[i]</code></li>
+      <li><b>Bug:</b> <code class="i">5 6 6 10</code> <i>is</i> sorted, but <code class="i">&gt;</code> breaks the run at the duplicate. Fix: <code class="i">ar[i+1] &gt;= ar[i]</code>.</li>
+      <li>Descending sorted → <code class="i">ar[i+1] &lt;= ar[i]</code>.</li>
+      <li>Everything else (length, max length, longest with si/ei) carries over unchanged.</li>
+    </ul>
+
+    <div class="code">
+      <div class="bar"><span>PrintSortedSubarrays.java (condition)</span><button onclick="cp(this)">Copy</button></div>
+<pre><code class="block"><span class="kw">for</span> (<span class="ty">int</span> i = <span class="st">0</span>; i &lt; ar.length - <span class="st">1</span>; i++)
+{
+    <span class="kw">if</span> (ar[i + <span class="st">1</span>] &gt;= ar[i])          <span class="cm">// "&gt;" alone breaks on equal values</span>
+    {
+        System.out.print(ar[i] + <span class="st">" "</span>);
+    }
+    <span class="kw">else</span>
+    {
+        System.out.print(ar[i] + <span class="st">" "</span>);
+        System.out.println();
+    }
+}
+
+System.out.println(ar[ar.length - <span class="st">1</span>]);</code></pre>
+    </div>
+
+    <div class="run">
+      <div class="rbar">▶ Run · PrintSortedSubarrays</div>
+      <div class="rbody">
+        <div class="rrun"><div class="in">8</div><div class="in">5 6 8 10 3 5 4 7</div><div class="out">5 6 8 10
+3 5
+4 7</div></div>
+        <div class="rrun"><div class="in">8</div><div class="in">5 6 6 10 3 5 4 7</div><div class="out">5 6 6 10
+3 5
+4 7<span class="cmt">   // duplicate handled by &gt;=</span></div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ARRAYS RECAP -->
+<section class="hw">
+  <h2><span class="tag">✓</span> Arrays — pattern recap</h2>
+  <p>Every array problem so far reduces to one of these:</p>
+  <div class="tw">
+  <table style="background:#fff">
+    <tr><th>Pattern</th><th>Seen in</th></tr>
+    <tr><td>Forward / backward traversal (and its bounds: to last−1, to centre, centre to end)</td><td>Days 3, 5, 9</td></tr>
+    <tr><td>One pointer <code>i</code></td><td>traversal, product, second largest</td></tr>
+    <tr><td>Adjacent pair <code>ar[i]</code> vs <code>ar[i+1]</code></td><td>sorted arrays, consecutive subarrays</td></tr>
+    <tr><td>Two pointers <code>i</code> and <code>j</code> (fetch / store, or two arrays)</td><td>two sorted arrays, merge, rearrange</td></tr>
+    <tr><td>Loop inside a loop</td><td>array pairs, subarrays</td></tr>
+  </table>
+    </div>
+  <p class="tm">Arrays complete. Next topic: <b>Strings</b> — equally important, starting from scratch.</p>
+</section>
+
+</main>
+
+<footer>TAP Academy · Arrays · Coding Class reference (Day 3 onward)</footer>
+
+<script>
+function flash(btn){
+  const t = btn.textContent;
+  btn.textContent='Copied'; btn.classList.add('done');
+  setTimeout(()=>{btn.textContent=t; btn.classList.remove('done')},1400);
+}
+function cp(btn){
+  const code = btn.closest('.code').querySelector('code.block').innerText;
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(code).then(()=>flash(btn)).catch(()=>legacy(code,btn));
+  } else {
+    legacy(code,btn);
+  }
+}
+function legacy(text,btn){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.setAttribute('readonly','');
+  ta.style.cssText='position:absolute;left:-9999px;top:0';
+  document.body.appendChild(ta);
+  ta.select(); ta.setSelectionRange(0,ta.value.length);
+  try{ document.execCommand('copy'); flash(btn); }catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+</body>
+</html>
